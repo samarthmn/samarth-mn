@@ -4,34 +4,47 @@ import { Flex, Text } from 'rebass/styled-components';
 import styled from 'styled-components';
 import { Endorsements } from '../types';
 import { Fade } from 'react-awesome-reveal';
-import { isMobile } from 'react-device-detect';
 
-const Endorsement = ({ list }: { list: Endorsements[] }) => (
-  <Container>
-    {list.length
-      ? list.map(({ author, authorLinkedin, endorsement }) => (
-          <CardContainer>
-            <Fade direction="down" triggerOnce>
-              <EndorsementText my={3} color="text">
-                {endorsement}
-              </EndorsementText>
-            </Fade>
-            <Fade direction="down" triggerOnce>
-              <AuthorContainer>
-                <Author color="text"> - {author}</Author>
-                <SocialLink
-                  name={`${author}'s Linkedin`}
-                  icon="linkedin"
-                  url={authorLinkedin}
-                  color="black"
-                />
-              </AuthorContainer>
-            </Fade>
-          </CardContainer>
-        ))
-      : null}
-  </Container>
-);
+const Endorsement = ({ list }: { list: Endorsements[] }) => {
+  const [isMob, setisMob] = React.useState(false);
+
+  const onResize = () => {
+    setisMob(window.innerWidth < 500);
+  };
+
+  React.useEffect(() => {
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  return (
+    <Container>
+      {list.length
+        ? list.map(({ author, authorLinkedin, endorsement }) => (
+            <CardContainer bool={isMob}>
+              <Fade direction="down" triggerOnce>
+                <EndorsementText my={3} color="text">
+                  {endorsement}
+                </EndorsementText>
+              </Fade>
+              <Fade direction="down" triggerOnce>
+                <AuthorContainer>
+                  <Author color="text"> - {author}</Author>
+                  <SocialLink
+                    name={`${author}'s Linkedin`}
+                    icon="linkedin"
+                    url={authorLinkedin}
+                    color="black"
+                  />
+                </AuthorContainer>
+              </Fade>
+            </CardContainer>
+          ))
+        : null}
+    </Container>
+  );
+};
 
 const Container = styled(Flex)`
   margin-bottom: 2em;
@@ -40,7 +53,7 @@ const Container = styled(Flex)`
 
 const CardContainer = styled.div`
   background-color: white;
-  width: ${isMobile ? '100%' : '45%'};
+  width: ${({ bool }: { bool: boolean }) => (bool ? '100%' : '45%')};
   margin: 10px;
   transition: all 0.25s;
   border-radius: 8px;

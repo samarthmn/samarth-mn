@@ -8,156 +8,157 @@ import TechStack from './TechStack';
 import ReactMarkdown from 'react-markdown';
 import MarkdownRenderer from './MarkdownRenderer';
 import { Fade } from 'react-awesome-reveal';
-import { BrowserView, MobileView, isMobile } from 'react-device-detect';
 
 type Props = ProjectType;
 
-const Project = ({
-  name,
-  description,
-  repository,
-  type,
-  startDate,
-  endDate,
-  logo,
-  techStack,
-}: Props) => {
+const Project = (props: Props) => {
+  const {
+    name,
+    description,
+    repository,
+    type,
+    startDate,
+    endDate,
+    logo,
+    techStack,
+  } = props;
   const [showStack, setshowStack] = React.useState(false);
+  const [isMob, setisMob] = React.useState(false);
+
+  const onResize = () => {
+    setisMob(window.innerWidth < 500);
+  };
+
+  React.useEffect(() => {
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  if (isMob) {
+    return (
+      <ProjectCard bool={true}>
+        <FlexRow>
+          {endDate ? (
+            <ImageLabel bg="primary" position="top-right" color="white" round>
+              {startDate === endDate
+                ? `${startDate} - Present`
+                : `${startDate} - ${endDate}`}
+            </ImageLabel>
+          ) : startDate ? (
+            <ImageLabel bg="primary" position="top-right" color="white" round>
+              {startDate}
+            </ImageLabel>
+          ) : null}
+          <ImageLabel
+            bg="primary"
+            position="bottom-right"
+            color="white"
+            round
+            style={{ cursor: 'pointer' }}
+            onClick={() => setshowStack(!showStack)}
+          >
+            {!showStack ? 'Show' : 'Hide'} Tech Stack
+          </ImageLabel>
+
+          <Grid>
+            <div
+              style={{
+                marginTop: 20,
+                marginBottom: 10,
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <ProjectImageMobile {...logo} />
+              <ProjectTitle>{name}</ProjectTitle>
+              {repository && (
+                <SocialLink name="Repository" icon="github" url={repository} />
+              )}
+            </div>
+            <Box>
+              <Fade direction="down" triggerOnce>
+                <ReactMarkdown
+                  source={description.childMarkdownRemark.rawMarkdownBody}
+                  renderers={MarkdownRenderer}
+                />
+              </Fade>
+            </Box>
+          </Grid>
+        </FlexRow>
+        {showStack ? (
+          <Fade cascade damping={0.5}>
+            <TechStack list={techStack} isMobile={true} />
+          </Fade>
+        ) : null}
+      </ProjectCard>
+    );
+  }
   return (
-    <>
-      <BrowserView>
-        <ProjectCard>
-          <FlexRow>
-            {type ? (
-              <ImageLabel bg="muted" position="top-left" round>
-                {type}
-              </ImageLabel>
-            ) : null}
-            {endDate ? (
-              <ImageLabel bg="primary" position="top-right" color="white" round>
-                {startDate === endDate
-                  ? `${startDate} - Present`
-                  : `${startDate} - ${endDate}`}
-              </ImageLabel>
-            ) : startDate ? (
-              <ImageLabel bg="primary" position="top-right" color="white" round>
-                {startDate}
-              </ImageLabel>
-            ) : null}
-            <ImageLabel
-              bg="primary"
-              position="bottom-right"
-              color="white"
-              round
-              style={{ cursor: 'pointer' }}
-              onClick={() => setshowStack(!showStack)}
-            >
-              {!showStack ? 'Show' : 'Hide'} Tech Stack
-            </ImageLabel>
-            <ProjectImage {...logo} />
-            <Grid>
-              <div
-                style={{
-                  marginBottom: 10,
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <ProjectTitle>{name}</ProjectTitle>
-                {repository && (
-                  <SocialLink
-                    name="Repository"
-                    icon="github"
-                    url={repository}
-                  />
-                )}
-              </div>
-              <Box>
-                <Fade direction="down" triggerOnce>
-                  <ReactMarkdown
-                    source={description.childMarkdownRemark.rawMarkdownBody}
-                    renderers={MarkdownRenderer}
-                  />
-                </Fade>
-              </Box>
-            </Grid>
-          </FlexRow>
-
-          {showStack ? (
-            <Fade cascade damping={0.5}>
-              <TechStack list={techStack} />
+    <ProjectCard bool={false}>
+      <FlexRow>
+        {type ? (
+          <ImageLabel bg="muted" position="top-left" round>
+            {type}
+          </ImageLabel>
+        ) : null}
+        {endDate ? (
+          <ImageLabel bg="primary" position="top-right" color="white" round>
+            {startDate === endDate
+              ? `${startDate} - Present`
+              : `${startDate} - ${endDate}`}
+          </ImageLabel>
+        ) : startDate ? (
+          <ImageLabel bg="primary" position="top-right" color="white" round>
+            {startDate}
+          </ImageLabel>
+        ) : null}
+        <ImageLabel
+          bg="primary"
+          position="bottom-right"
+          color="white"
+          round
+          style={{ cursor: 'pointer' }}
+          onClick={() => setshowStack(!showStack)}
+        >
+          {!showStack ? 'Show' : 'Hide'} Tech Stack
+        </ImageLabel>
+        <ProjectImage {...logo} />
+        <Grid>
+          <div
+            style={{
+              marginBottom: 10,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <ProjectTitle>{name}</ProjectTitle>
+            {repository && (
+              <SocialLink name="Repository" icon="github" url={repository} />
+            )}
+          </div>
+          <Box>
+            <Fade direction="down" triggerOnce>
+              <ReactMarkdown
+                source={description.childMarkdownRemark.rawMarkdownBody}
+                renderers={MarkdownRenderer}
+              />
             </Fade>
-          ) : null}
-        </ProjectCard>
-      </BrowserView>
-      <MobileView>
-        <ProjectCard>
-          <FlexRow>
-            {endDate ? (
-              <ImageLabel bg="primary" position="top-right" color="white" round>
-                {startDate === endDate
-                  ? `${startDate} - Present`
-                  : `${startDate} - ${endDate}`}
-              </ImageLabel>
-            ) : startDate ? (
-              <ImageLabel bg="primary" position="top-right" color="white" round>
-                {startDate}
-              </ImageLabel>
-            ) : null}
-            <ImageLabel
-              bg="primary"
-              position="bottom-right"
-              color="white"
-              round
-              style={{ cursor: 'pointer' }}
-              onClick={() => setshowStack(!showStack)}
-            >
-              {!showStack ? 'Show' : 'Hide'} Tech Stack
-            </ImageLabel>
-
-            <Grid>
-              <div
-                style={{
-                  marginTop: 20,
-                  marginBottom: 10,
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <ProjectImageMobile {...logo} />
-                <ProjectTitle>{name}</ProjectTitle>
-                {repository && (
-                  <SocialLink
-                    name="Repository"
-                    icon="github"
-                    url={repository}
-                  />
-                )}
-              </div>
-              <Box>
-                <Fade direction="down" triggerOnce>
-                  <ReactMarkdown
-                    source={description.childMarkdownRemark.rawMarkdownBody}
-                    renderers={MarkdownRenderer}
-                  />
-                </Fade>
-              </Box>
-            </Grid>
-          </FlexRow>
-
-          {showStack ? (
-            <Fade cascade damping={0.5}>
-              <TechStack list={techStack} isMobile />
-            </Fade>
-          ) : null}
-        </ProjectCard>
-      </MobileView>
-    </>
+          </Box>
+        </Grid>
+      </FlexRow>
+      {showStack ? (
+        <Fade cascade damping={0.5}>
+          <TechStack list={techStack} />
+        </Fade>
+      ) : null}
+    </ProjectCard>
   );
 };
 
 const ProjectCard = styled(Flex)`
-  padding: ${isMobile ? '20px 20px 10px 20px' : '20px 20px 10px 0px'};
+  padding: ${({ bool }: { bool: boolean }) =>
+    bool ? '20px 20px 10px 20px' : '20px 20px 10px 0px'};
   background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.25s;

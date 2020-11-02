@@ -14,7 +14,7 @@ const Projects = () => {
       <Section.Header name="Projects / Experience" icon="💻" label="notebook" />
 
       <div>
-        <Fade direction="down" cascade damping={0.5} triggerOnce>
+        <Fade direction="down" triggerOnce>
           {projects.map((p, i) => (
             <Project {...p} key={i} />
           ))}
