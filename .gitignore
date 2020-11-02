@@ -67,3 +67,7 @@ netlify.toml
 .DS_Store
 .vscode/
 about.json
+
+.firebase
+firebase.json
+.firebaserc
