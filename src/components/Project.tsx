@@ -94,11 +94,13 @@ const Project = ({
         <ProjectCard>
           <FlexRow>
             {endDate ? (
-              <ImageLabel bg="primary" position="top-left" color="white" round>
-                {startDate} - {endDate}
+              <ImageLabel bg="primary" position="top-right" color="white" round>
+                {startDate === endDate
+                  ? `${startDate} - Present`
+                  : `${startDate} - ${endDate}`}
               </ImageLabel>
             ) : startDate ? (
-              <ImageLabel bg="primary" position="top-left" color="white" round>
+              <ImageLabel bg="primary" position="top-right" color="white" round>
                 {startDate}
               </ImageLabel>
             ) : null}
