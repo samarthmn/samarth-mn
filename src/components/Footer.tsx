@@ -15,7 +15,7 @@ const Footer = () => {
       <FooterContainer>
         <Fade direction="left" triggerOnce>
           <TextWrapper fontSize={[0, 3]}>
-            <span>{`${name} Portfolio - Powered by `}</span>
+            <span>{`${name}'s Portfolio - Built using `}</span>
             <Link href={GATSBY_URL}>Gatsby</Link>
             <span> and </span>
             <Link href={CONTENTFUL_URL}>Contentful</Link>

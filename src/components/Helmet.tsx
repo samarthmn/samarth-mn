@@ -9,7 +9,7 @@ type Props = {
 
 const Helmet = ({ theme }: Props) => {
   const { name, description, profile } = useHelmetQuery();
-  const title = `${name} Portfolio`;
+  const title = `${name}'s Portfolio`;
 
   return (
     <ReactHelmet htmlAttributes={{ lang: 'en' }}>
