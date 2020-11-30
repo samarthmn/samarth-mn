@@ -9,6 +9,15 @@ const plugins = [
   'gatsby-plugin-typescript',
   'gatsby-plugin-styled-components',
   'gatsby-transformer-remark',
+  'gatsby-plugin-sitemap',
+  {
+    resolve: 'gatsby-plugin-robots-txt',
+    options: {
+      host: 'https://www.samarthmn.com',
+      sitemap: 'https://www.samarthmn.com/sitemap.xml',
+      policy: [{ userAgent: '*', allow: '/' }],
+    },
+  },
   {
     resolve: 'gatsby-plugin-manifest',
     options: {
@@ -50,5 +59,6 @@ module.exports = {
   siteMetadata: {
     isMediumUserDefined: !!about.mediumUser,
     deterministic: !!DETERMINISTIC,
+    siteUrl: `https://www.samarthmn.com`,
   },
 };

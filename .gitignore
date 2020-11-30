@@ -69,5 +69,3 @@ netlify.toml
 about.json
 
 .firebase
-firebase.json
-.firebaserc
