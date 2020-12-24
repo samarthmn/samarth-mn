@@ -1,6 +1,5 @@
 import React from 'react';
 import { Heading, Flex, Box, Text } from 'rebass/styled-components';
-import TextLoop from 'react-text-loop';
 import Section from '../components/Section';
 import SocialLink from '../components/SocialLink';
 import { useScrollSection } from 'react-scroll-section';
@@ -21,7 +20,7 @@ const LandingPage = () => {
         as="h1"
         color="primary"
         fontSize={[5, 6]}
-        mb={[3, 4, 5]}
+        mb={[1, 1]}
       >
         {`Hello, I'm ${name}!`}
       </Heading>
@@ -34,15 +33,16 @@ const LandingPage = () => {
         textAlign="center"
         style={centerHorizontally}
       >
-        <TextLoop interval={2500}>
-          {roles
-            .sort(() => (deterministic ? 1 : Math.random() - 0.5))
-            .map((text) => (
-              <Text width={[300, 500]} key={text}>
-                {text}
-              </Text>
-            ))}
-        </TextLoop>
+        <Text fontSize={[18, 22]}>{roles.join(' | ').toString()}</Text>
+        {/* <TextLoop interval={2500}>
+        {roles
+          .sort(() => (deterministic ? 1 : Math.random() - 0.5))
+          .map((text) => (
+            <Text width={[300, 500]} key={text}>
+              {text}
+            </Text>
+          ))}
+        </TextLoop> */}
       </Heading>
 
       <Flex alignItems="center" justifyContent="center" flexWrap="wrap">
