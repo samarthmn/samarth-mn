@@ -20,7 +20,7 @@ const LandingPage = () => {
         as="h1"
         color="primary"
         fontSize={[5, 6]}
-        mb={[1, 1]}
+        mb={[1, 2]}
       >
         {`Hello, I'm ${name}!`}
       </Heading>
@@ -29,7 +29,7 @@ const LandingPage = () => {
         as="h2"
         color="primary"
         fontSize={[4, 5]}
-        mb={[3, 5]}
+        mb={[2, 3]}
         textAlign="center"
         style={centerHorizontally}
       >
