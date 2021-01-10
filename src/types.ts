@@ -58,6 +58,8 @@ export type Landing = {
 
 export type Endorsements = {
   author: string;
-  endorsement: string;
+  endorsement: {
+    endorsement: string;
+  };
   authorLinkedin: string;
 };

@@ -25,7 +25,7 @@ const Endorsement = ({ list }: { list: Endorsements[] }) => {
             <CardContainer bool={isMob}>
               <Fade direction="down" triggerOnce>
                 <EndorsementText my={3} color="text">
-                  {endorsement}
+                  {endorsement.endorsement}
                 </EndorsementText>
               </Fade>
               <Fade direction="down" triggerOnce>

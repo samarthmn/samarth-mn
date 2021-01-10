@@ -17,7 +17,9 @@ export const useEndorsementsQuery = (): Endorsements[] => {
           node {
             authorLinkedin
             author
-            endorsement
+            endorsement {
+              endorsement
+            }
           }
         }
       }
