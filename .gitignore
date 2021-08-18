@@ -68,3 +68,5 @@ netlify.toml
 .vscode/
 
 .firebase
+# Local Netlify folder
+.netlify

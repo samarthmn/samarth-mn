@@ -2,9 +2,9 @@
   "name": "samarth-mn",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "scripts": {
-    "deploy": "gatsby clean && gatsby build && firebase deploy --only hosting",
+    "deploy": "gatsby clean && gatsby build && netlify deploy --prod",
     "dev": "gatsby clean && gatsby develop",
     "build": "gatsby clean && gatsby build",
     "start": "gatsby develop",
@@ -69,8 +69,15 @@
     "type": "git",
     "url": "git+https://github.com/SamarthMN/samarth-mn.git"
   },
+  "keywords": [
+    "JavaScript",
+    "GatsbyJS",
+    "ReactJS",
+    "TypeScript",
+    "Contentful",
+    "styled-components"
+  ],
   "author": "Samarth MN <samarth.m.n@gmail.com>",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/SamarthMN/samarth-mn/issues"
   },
