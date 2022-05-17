@@ -39,15 +39,13 @@ const Project = (props: Props) => {
     return (
       <ProjectCard bool={true}>
         <FlexRow>
-          {endDate ? (
+          {startDate && !endDate ? (
             <ImageLabel bg="primary" position="top-right" color="white" round>
-              {startDate === endDate
-                ? `${startDate} - Present`
-                : `${startDate} - ${endDate}`}
+              {`${startDate} - Present`}
             </ImageLabel>
-          ) : startDate ? (
+          ) : startDate && endDate ? (
             <ImageLabel bg="primary" position="top-right" color="white" round>
-              {startDate}
+              {`${startDate} - ${endDate}`}
             </ImageLabel>
           ) : null}
           <ImageLabel
@@ -102,27 +100,27 @@ const Project = (props: Props) => {
             {type}
           </ImageLabel>
         ) : null}
-        {endDate ? (
+        {startDate && !endDate ? (
           <ImageLabel bg="primary" position="top-right" color="white" round>
-            {startDate === endDate
-              ? `${startDate} - Present`
-              : `${startDate} - ${endDate}`}
+            {`${startDate} - Present`}
           </ImageLabel>
-        ) : startDate ? (
+        ) : startDate && endDate ? (
           <ImageLabel bg="primary" position="top-right" color="white" round>
-            {startDate}
+            {`${startDate} - ${endDate}`}
           </ImageLabel>
         ) : null}
-        <ImageLabel
-          bg="primary"
-          position="bottom-right"
-          color="white"
-          round
-          style={{ cursor: 'pointer' }}
-          onClick={() => setshowStack(!showStack)}
-        >
-          {!showStack ? 'Show' : 'Hide'} Tech Stack
-        </ImageLabel>
+        {techStack?.length && (
+          <ImageLabel
+            bg="primary"
+            position="bottom-right"
+            color="white"
+            round
+            style={{ cursor: 'pointer' }}
+            onClick={() => setshowStack(!showStack)}
+          >
+            {!showStack ? 'Show' : 'Hide'} Tech Stack
+          </ImageLabel>
+        )}
         <ProjectImage {...logo} />
         <Grid>
           <div
@@ -147,7 +145,7 @@ const Project = (props: Props) => {
           </Box>
         </Grid>
       </FlexRow>
-      {showStack ? (
+      {showStack && techStack?.length ? (
         <Fade cascade damping={0.5}>
           <TechStack list={techStack} />
         </Fade>
